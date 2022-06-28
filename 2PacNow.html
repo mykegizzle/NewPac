@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>2Pacalypse Now</title>
+    <link rel="icon" href="/2PacNow/2PacNow.jpg" type="image/x-icon" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora&family=Noto+Sans+JP:wght@500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="./style.css" rel="stylesheet" />
+
+    <style>
+      :root {
+        background: #bf973e;
+        --main-radius: 5px;
+        --main-padding: 5px;
+      }
+
+      .container {
+        display: grid;
+        height: 100vh;
+        grid-template-columns: 0.9fr 1fr 1fr 1fr;
+        grid-template-rows: 0.2fr 1.5fr 1.2fr 0.8fr;
+        grid-template-areas:
+          "nav nav nav nav"
+          "sidebar main main main"
+          "sidebar content1 content2 content3"
+          "sidebar footer footer footer";
+        grid-gap: 0.2rem;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 800;
+        color: white;
+      }
+      h1 {
+        color: white;
+
+        font-size: 1.5rem;
+        margin-top: -15px;
+        margin-left: 120px;
+        padding: 0;
+      }
+
+      img {
+        width: 75px;
+        height: 75px;
+      }
+      .img1 {
+        width: 100%;
+        height: 100%;
+      }
+      .navbar a {
+        float: left;
+        padding: 12px;
+        text-decoration: none;
+        font-size: 17px;
+        width: 50px;
+        margin-top: 25px;
+        margin-left: 45px;
+        z-index: -999;
+      }
+      main {
+        margin-left: -50px;
+        grid-area: main;
+        width: 95%;
+        height: 70%;
+        background: url("./2PacNow/main.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #sidebar {
+        background-image: url("./2PacNow/2PacNowSidePic.png");
+        background-size: cover;
+        background-position: center;
+        grid-area: sidebar;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #content1 {
+        grid-area: content1;
+        height: 600px;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #content2 {
+        grid-area: content2;
+        height: 600px;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #content3 {
+        grid-area: content3;
+        height: 600px;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+
+      .card-container {
+        background-color: transparent;
+        width: 370px;
+        height: 513px;
+      }
+
+      .card-container-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.6s;
+        transform-style: preserve-3d;
+      }
+
+      .card-container-content > .card-front > img1 {
+        width: 100%;
+        height: 100%;
+      }
+
+      .card-container:hover .card-container-content {
+        transform: rotateY(180deg);
+      }
+
+      .card-front,
+      .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .card-back {
+        font-size: 14px;
+        background-color: black;
+        color: #bf973e;
+        transform: rotateY(180deg);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+      }
+
+      footer {
+        height: 35px;
+        grid-area: footer;
+        border-radius: var(--main-radius);
+        padding-top: var(--main-padding);
+      }
+      #theMenu {
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translate3d(-100vw, 0, 0);
+
+        width: 100vw;
+        height: 100vw;
+      }
+      #theMenu.visible {
+        transform: translate3d(0vw, 0, 0);
+      }
+
+      #container li {
+        margin-bottom: 10px;
+      }
+
+      #roundButton {
+        background: url("./2PacNow/2PacNowButton.png");
+        background-position: center;
+        background-repeat: repeat;
+        background-size: cover;
+        margin-bottom: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        outline: none;
+        transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+      }
+
+      #roundButton:hover {
+        background-color: rgb(146, 119, 2);
+        cursor: pointer;
+        border-color: rgb(146, 119, 2);
+        transform: scale(1.2, 1.2);
+      }
+
+      #roundButton:active {
+        border-color: rgb(186, 150, 5);
+        background-color: rgb(186, 150, 5);
+      }
+
+      #flyoutMenu {
+        list-style: none;
+        width: 100vw;
+        height: 110vh;
+        background-color: black;
+        background: url("./BigCover.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        transform: translate3d(-100vw, 0, 0);
+        transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+      }
+
+      #flyoutMenu h2 a {
+        padding-top: 55px;
+        display: grid;
+        grid-template-rows: 1fr;
+        justify-content: center;
+        color: white;
+        margin-left: 35px;
+        text-decoration: none;
+      }
+
+      #flyoutMenu h2 a:hover {
+        text-decoration: underline;
+      }
+      #flyoutMenu.show {
+        transform: translate3d(0vw, 0, 0);
+      }
+      @media only screen and (max-width: 700px) {
+        #flyoutMenu {
+          list-style: none;
+          width: 100%;
+          height: 100vh;
+          background: url("./Cover.png");
+          background-size: cover;
+          background-color: black;
+          background-position: center;
+          background-repeat: no-repeat;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 999;
+          transform: translate3d(-100vw, 0, 0);
+          transition: transform 0.3s cubic-bezier(0, 0.52, 0, 1);
+        }
+
+        .container {
+          overflow-x: hidden;
+          grid-template-columns: 1fr;
+          grid-template-rows: 0.4fr 0.4fr 2.2fr 1.2fr 1.2fr 1.2fr 1fr;
+          grid-template-areas:
+            "nav"
+            "sidebar"
+            "main"
+            "content1"
+            "content2"
+            "content3"
+            "footer";
+        }
+
+        #sidebar {
+          padding-bottom: 300px;
+
+          width: 100vw;
+          margin-top: -68px;
+          height: 100vh;
+          background-image: url("./2PacNow/2PacNowSidePic.png");
+          background-size: cover;
+          background-position: center;
+          grid-area: main;
+          border-radius: var(--main-radius);
+          z-index: -999;
+        }
+
+        #content1 {
+          align-content: center;
+          padding-left: 10px;
+          margin-top: -150px;
+          grid-area: content1;
+          border-radius: var(--main-radius);
+        }
+
+        #content2 {
+          padding-top: 25px;
+          grid-area: content2;
+          padding-left: 10px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+
+        #content3 {
+          padding-left: 10px;
+          padding-top: 25px;
+          grid-area: content3;
+          margin-top: 60px;
+          height: 600px;
+          border-radius: var(--main-radius);
+        }
+      }
+
+      @media only screen and (max-width: 700px) {
+        main {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="flyoutMenu">
+      <h2><a href="./2PacNow.html">2Pacalypse Now</a></h2>
+      <h2><a href="./S4MN.html">Strictly 4 My N.I.G.G.A.Z.</a></h2>
+      <h2><a href="./MATW.html">Me Against the World</a></h2>
+      <h2><a href="./AEOM.html">All Eyez on Me</a></h2>
+      <h2>
+        <a href="./Makaveli.html">The Don Killuminati: The 7 Day Theory</a>
+      </h2>
+    </div>
+    <button id="roundButton"></button>
+
+    <script>
+      let roundButton = document.querySelector("#roundButton");
+      roundButton.addEventListener("click", showMenu, false);
+
+      let flyoutMenu = document.querySelector("#flyoutMenu");
+      flyoutMenu.addEventListener("click", hideMenu, false);
+
+      function showMenu(e) {
+        flyoutMenu.classList.add("show");
+
+        document.body.style.overflow = "hidden";
+      }
+
+      function hideMenu(e) {
+        flyoutMenu.classList.remove("show");
+        e.stopPropagation();
+
+        document.body.style.overflow = "auto";
+      }
+    </script>
+    <div class="container">
+      <main></main>
+
+      <div id="sidebar"></div>
+
+      <div id="content1">
+        <div class="card-container">
+          <div class="card-container-content">
+            <div class="card-front">
+              <img class="img1" src="./2PacNow/Rhymebook.jpeg" alt="therow" />
+            </div>
+
+            <div class="card-back">
+              <div class="Album-Name">2Pacalypse Now</div>
+              <p></p>
+              <div class="release-date">Rhymebook</div>
+              <p>
+                2pacalypse Now is a battle cry,” he explains, “a no-bullshit
+                record about how we really live, really feel. Hip hop’s a mirror
+                reflection of our culture today. Everything put on wax will be
+                remembered and ‘Pray’ is not how we’re living in the ’90s. It’s
+                up to the rap audience to decide the future of rap music. If you
+                want it to be that bubblegum ‘Ice, Ice, Baby’ bullshit, that’s
+                what it’s gonna be. But if you want it to be real, you have to
+                stick with the real NIGGAs. If not, they’re going to take this
+                industry away from us. It’s gonna be a white thing, just like
+                they did with rock ’n’ roll. I’m speaking truth. We’ve got to
+                stand strong
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="content2">
+        <div class="card-container">
+          <div class="card-container-content">
+            <div class="card-front">
+              <img
+                class="img1"
+                src="./2PacNow/TrappedVideo.jpeg"
+                alt="TrappedVideo"
+              />
+            </div>
+
+            <div class="card-back">
+              <div class="shoe-name">Trapped</div>
+              <p></p>
+              <div class="release-date">Video Shoot</div>
+              <p>
+                The Young Black Male hero is already in us!” Every white kid
+                wants to be us! Americans tried to kill us and we’ve gotten the
+                worst revenge because now we got their kids wanting to be us! I
+                see it at every rap show — and that’s excellent. If the white
+                adults can say, ‘My son can kick it with that man,’ maybe
+                they’ll see what’s going on for real. That’s the power of rap
+                and once was the power of rock ’n’ roll
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content3">
+        <div class="card-container">
+          <div class="card-container-content">
+            <div class="card-front">
+              <img src="./2PacNow/2PacNow4.jpeg" class="img1" alt="Live" />
+            </div>
+
+            <div class="card-back">
+              <div class="shoe-name">Brenda’s Got a Baby</div>
+              <p></p>
+              <div class="release-date">Gems</div>
+              <p>
+                It’s like when Harriet Tubman took the slaves north. Dope
+                dealers are like slaves, trapped, and rappers are like
+                conductors on this underground railroad taking them to something
+                better. In my posse I’m talking about brothers who used to be
+                kingpins. They trust me so I got to be large. What I get, the
+                homies get too. I’m down for the Young Black Male. Like on the
+                movie, the actors were bringing other black actors to the set —
+                I was bringing my friends from the street. That worried a few
+                people. But I live what I say. I’m not no teacher, as you can
+                tell from how I speak. I’m just a voice from the crowd.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>Footer</footer>
+    </div>
+  </body>
+</html>
